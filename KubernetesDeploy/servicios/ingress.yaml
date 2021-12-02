@@ -1,0 +1,25 @@
+# Ingress para acceder a la aplicación a través de una
+# dirección.
+
+apiVersion: networking.k8s.io/v1    # Sintaxis diferente a la presentada en el vídeo.
+kind: Ingress
+metadata:
+  name: ingress-crud
+  annotations:
+    # Comportamiento del ingress para acceder al app desde el exterior
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+spec:
+  rules:
+  # Acceso que abriremos.
+  - host: app.mlopez.com
+    http:
+      paths:
+      # Solo utilizaremos un path, que será la misma dirección
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: crudapp-service
+            port:
+              number: 80

@@ -1,0 +1,11 @@
+# Namespace para la aplicación de CRUD
+#                         mlopez
+# Se estableció como namespace por defecto para fines prácticos.
+#   kubectl config set-context --current --namespace=mlopez
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mlopez
+  labels:
+    tipo: crud

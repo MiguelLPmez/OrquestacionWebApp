@@ -1,0 +1,20 @@
+# Servicio Cluster IP para la comunicación de la DB
+# con la Web App.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cruddb-service
+  labels:
+    app: cruddbpod
+
+spec:
+  ports:
+  # Puerto a exponer. Es importante que sea 3306, ya que por
+  # default el container de la app va a buscar conectar con MySQL
+  # a través de este número de puerto.
+  - port: 3306
+    targetPort: 3306
+  # Selector del servicio a los pods
+  selector:
+    app: cruddbpod

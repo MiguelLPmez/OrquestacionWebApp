@@ -1,0 +1,39 @@
+# Deployment del pod de la base de datos
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cruddb-d
+spec:
+  # Etiquetas para seleccionar los pods
+  selector:
+    matchLabels:
+      app: cruddbpod
+  
+  # Las réplicas no serán de la BD
+  replicas: 1
+
+  # Definición del pod
+  template: 
+    metadata:
+      labels:
+        # Etiqueta para el selector
+        app: cruddbpod
+    spec:
+      containers:
+      - name: cruddbcontainer
+        image: miguellpmez/cruddbserver:v1
+        ports:
+        - containerPort: 3306
+
+        # Declaración del volúmen para la persistencia de datos
+        volumeMounts:
+        - name: pv-storage
+          mountPath: var/lib/mysql
+        
+      # > Asignación del volumen
+      volumes:
+      - name: pv-storage
+        # Asociamos el volumen del pod al pv-claim
+        persistentVolumeClaim:
+          claimName: pv-claim

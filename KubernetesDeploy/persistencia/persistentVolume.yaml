@@ -1,0 +1,20 @@
+# Creación del volumen para persistencia de datos
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: sistemaficheros
+  capacity:
+    storage: 1Gi
+  accessModes:
+    # Un solo nodo a la vez podrá acceder a los archivos
+    - ReadWriteOnce
+  hostPath:
+    # Dirección en la máquina virtual
+    # El directorio /data persiste cuando se reinicia Minikube, al
+    # igual que /var/lib/minikube y /var/lib/docker.
+    path: /data/dbdata

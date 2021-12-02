@@ -1,0 +1,15 @@
+# Creación del PVC para que el pod de BD pueda acceder al volúmen
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim
+spec:
+  # Acceso al persistent volume, debe coincidir el nombre
+  storageClassName: sistemaficheros
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    # Reparto del almacenamiento
+    requests:
+      storage: 1Gi

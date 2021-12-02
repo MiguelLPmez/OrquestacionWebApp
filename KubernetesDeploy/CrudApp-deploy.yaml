@@ -1,0 +1,28 @@
+# Deployment de los pod de la aplicación web.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crudapp-d
+spec:
+  # Etiquetas para seleccionar los pods
+  selector:
+    matchLabels:
+      app: crudapppod
+  
+  # Número de réplicas
+  replicas: 7
+
+  # Definición del pod
+  template: 
+    metadata:
+      labels:
+        # Etiqueta para el selector
+        app: crudapppod
+    spec:
+      containers:
+      - name: crudappcontainer
+        image: miguellpmez/crudwebapp:v1
+        ports:
+        - containerPort: 80
+

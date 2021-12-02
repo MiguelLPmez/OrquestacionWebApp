@@ -1,0 +1,16 @@
+# Servicio NodePort para la comunicación del usuario
+# con la aplicación web. Será utilizado por el Ingress
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: crudapp-service
+  labels:
+    app: crudapppod
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  # Selector del servicio a los pods
+  selector:
+    app: crudapppod
